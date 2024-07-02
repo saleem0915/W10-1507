@@ -1,0 +1,113 @@
+﻿<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<assembly
+    xmlns="urn:schemas-microsoft-com:asm.v3"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    manifestVersion="1.0"
+    >
+  <assemblyIdentity name="Microsoft-Windows-ehome-reg-inf"
+      processorArchitecture="*"
+      version="0.0.0.0" />
+  <migration replacementSettingsVersionRange="0-2"
+      replacementVersionRange="6.0-6.2"
+      settingsVersion="2"
+      alwaysProcess="Yes">
+    <!-- This manifest will load irrespective whether the Media Center feature is installed or not      -->
+    <!-- This is because we always want to apply settings coming from a system that had Media Center    -->
+    <!-- in case the user will want to WAU up to a sku that has Media Center in it. Unfortunately this  -->
+    <!-- also means that this manifest will also attempt to gather even if Media Center is not installed-->
+    <!-- This should not be a problem since there is really nothing to gather here                      -->
+    <migXml xmlns="">
+      <plugin
+        classId="{65cbf70b-1d78-4cac-8400-9acd65ced94a}"
+        file="Microsoft-eHome-Reg-Inf\epgmig.dll"
+        />
+      <rules context="System">
+        <include>
+          <objectSet>
+            <!-- Files and Registry Keys\Entries to migrate -->
+            <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\* [*]</pattern>
+            <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Multimedia\TV\Tuning Spaces\* [*]</pattern>
+            <pattern type="File">%CSIDL_APPDATA%\Microsoft\eHome\Recording [recordings.xml]</pattern>
+          </objectSet>
+        </include>
+        <exclude>
+          <objectSet>
+            <!-- Files and Registry Keys\Entries to exclude from migration -->
+            <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center [Ident]</pattern>
+            <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{3acc903b-b201-4602-b0d9-54ced66af2fa}\* [*]</pattern>
+            <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{3B07E1C5-DD2D-448b-B045-101ED7038E7D}\* [*]</pattern>
+            <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{3cdb7093-1b50-4f9e-ab57-307ff3167b81}\* [*]</pattern>
+            <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{3C1BB651-D564-46a7-99BA-8D40BCB6FA7D}\* [*]</pattern>
+            <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{48095937-BA42-4bb6-9869-EBAC2229D3AF}\* [*]</pattern>
+            <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{4F5AC696-6D21-4dac-BC8B-8287245B2A13}\* [*]</pattern>
+            <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{866BD81A-F32D-4b44-830A-F5C37585CB9D}\* [*]</pattern>
+            <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{A897807C-6278-46bc-B973-9DD1DE8551DF}\* [*]</pattern>
+            <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{B3040AD2-4608-47a4-8508-D5F3C184D2A7}\* [*]</pattern>
+            <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{B4C403DA-6240-4070-80F1-1B1689FF301F}\* [*]</pattern>
+            <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{F755EA7F-777E-498f-831D-E3F3F6FDA018}\* [*]</pattern>
+            <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Categories\Listmaker\Disc Burning\* [*]</pattern>
+          </objectSet>
+        </exclude>
+        <merge script="MigXmlHelper.DestinationPriority()">
+          <objectSet>
+            <!-- Don't migrate if objects already exist on target/destination -->
+            <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\* [*]</pattern>
+          </objectSet>
+        </merge>
+      </rules>
+      <rules context="User">
+        <include>
+          <objectSet>
+            <!-- Files and Registry Keys\Entries to migrate -->
+            <pattern type="Registry">HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\* [*]</pattern>
+          </objectSet>
+        </include>
+        <merge script="MigXmlHelper.DestinationPriority()">
+          <objectSet>
+            <!-- Don't migrate if objects already exist on target/destination -->
+            <pattern type="Registry">HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\* [*]</pattern>
+          </objectSet>
+        </merge>
+      </rules>
+    </migXml>
+    <supportedComponents>
+      <supportedComponent>
+        <supportedComponentIdentity
+            language="*"
+            name="Microsoft-Windows-ehome-reg-inf"
+            processorArchitecture="*"
+            settingsVersionRange="0-2"
+            />
+        <migXml xmlns="">
+          <!-- Migration Rules specific to build to build upgrades -->
+          <rules context="System">
+            <exclude>
+              <objectSet>
+                <!-- Files and Registry Keys\Entries to exclude from migration -->
+                <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{3acc903b-b201-4602-b0d9-54ced66af2fa}\* [*]</pattern>
+                <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{3B07E1C5-DD2D-448b-B045-101ED7038E7D}\* [*]</pattern>
+                <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{3cdb7093-1b50-4f9e-ab57-307ff3167b81}\* [*]</pattern>
+                <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{3C1BB651-D564-46a7-99BA-8D40BCB6FA7D}\* [*]</pattern>
+                <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{48095937-BA42-4bb6-9869-EBAC2229D3AF}\* [*]</pattern>
+                <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{4F5AC696-6D21-4dac-BC8B-8287245B2A13}\* [*]</pattern>
+                <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{866BD81A-F32D-4b44-830A-F5C37585CB9D}\* [*]</pattern>
+                <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{A897807C-6278-46bc-B973-9DD1DE8551DF}\* [*]</pattern>
+                <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{B3040AD2-4608-47a4-8508-D5F3C184D2A7}\* [*]</pattern>
+                <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{B4C403DA-6240-4070-80F1-1B1689FF301F}\* [*]</pattern>
+                <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Applications\{F755EA7F-777E-498f-831D-E3F3F6FDA018}\* [*]</pattern>
+                <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\Categories\Listmaker\Disc Burning\* [*]</pattern>
+              </objectSet>
+            </exclude>
+            <merge script="MigXmlHelper.DestinationPriority()">
+              <objectSet>
+                <!-- Don't migrate if objects already exist on target/destination -->
+                <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Extensibility\* [*]</pattern>
+              </objectSet>
+            </merge>
+          </rules>
+        </migXml>
+      </supportedComponent>
+    </supportedComponents>
+  </migration>
+</assembly>

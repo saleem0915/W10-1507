@@ -1,0 +1,31 @@
+﻿<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<assembly
+    xmlns="urn:schemas-microsoft-com:asm.v3"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    manifestVersion="1.0"
+    >
+  <assemblyIdentity
+      buildType="$(build.buildType)"
+      language="neutral"
+      name="Microsoft-Windows-Store-Service"
+      processorArchitecture="*"
+      publicKeyToken=""
+      version="0.0.0.0"
+      versionScope="nonSxS"
+      />
+  <migration
+      replacementSettingsVersionRange="1"
+      scope="Upgrade"
+      settingsVersion="2"
+      >
+    <machineSpecific>
+      <migXml xmlns="">
+        <plugin
+            classId="{D12A3141-A1FF-4DAD-BF67-1B664DE1CBD6}"
+            file="WSLicensing\WSMigPlugin.dll"
+          />
+      </migXml>
+    </machineSpecific>
+  </migration>
+</assembly>

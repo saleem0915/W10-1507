@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<assembly
+    xmlns="urn:schemas-microsoft-com:asm.v3"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    manifestVersion="1.0"
+    >
+  <assemblyIdentity
+      language="neutral"
+      name="Microsoft-Windows-AdvertisingId"
+      processorArchitecture="*"
+      version="0.0.0.0"
+      />
+  <migration
+      alwaysProcess="yes"
+      replacementSettingsVersionRange="0"
+      replacementVersionRange="6.2.*"
+      settingsVersion="0"
+      >
+    <supportedComponents>
+      <supportedComponent>
+        <supportedComponentIdentity
+            language="neutral"
+            name="Microsoft-Windows-AdvertisingId"
+            processorArchitecture="*"
+            settingsVersionRange="0"
+            />
+      </supportedComponent>
+    </supportedComponents>
+    <migXml xmlns="">
+      <rules context="System">
+        <include>
+          <objectSet>
+            <pattern type="Registry">HKLM\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo [Enabled]</pattern>
+          </objectSet>
+        </include>
+        <addObjects>
+          <!-- If this regkey doesn't exist, this will simulate its existence during the gather stage, so that it can be applied. -->
+          <conditions>
+            <condition negation="yes">
+              MigXmlHelper.DoesObjectExist("Registry", "HKLM\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo [Enabled]")
+            </condition>
+          </conditions>
+          <object>
+            <location type="Registry">HKLM\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo [Enabled]</location>
+            <attributes>dword</attributes>
+            <bytes>01000000</bytes>
+          </object>
+        </addObjects>
+      </rules>
+    </migXml>
+  </migration>
+</assembly>

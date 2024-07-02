@@ -1,0 +1,46 @@
+﻿<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<assembly
+    xmlns="urn:schemas-microsoft-com:asm.v3"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    manifestVersion="1.0"
+    >
+  <!-- This replaces a manifest with the same identity name -->
+  <assemblyIdentity
+      language="neutral"
+      name="Microsoft-Windows-MapControl"
+      processorArchitecture="*"
+      version="0.0.0.0"
+      />
+  <!-- Any manifest with a missing migration section will have default settingsVersion of 0.
+       We can then check for that settings version range to have this applied to only to these upgrades. -->
+  <migration
+      replacementVersionRange="10.0.*"
+      replacementSettingsVersionRange="0-1"
+      settingsVersion="1"
+      alwaysProcess="yes"
+      >
+    <migXml xmlns="">
+      <plugin
+          classId="{39CC25F3-AF21-4C42-854D-0524249F02CE}"
+          file="Microsoft-Windows-MapsControl-Migration\MapsMigPlugin.dll"
+          />
+      <rules context="System">
+        <!-- Don't migrate over ACLs, use the ones set during deployment -->
+        <excludeAttributes attributes="Security">
+          <objectSet>
+            <pattern type="Registry">HKLM\System\Maps\* [*]</pattern>
+          </objectSet>
+        </excludeAttributes>
+        <include>
+          <objectSet>
+            <pattern type="Registry">HKLM\System\Maps\* [*]</pattern>
+            <pattern type="File">%ProgramData%\Microsoft\MapData\* [*]</pattern>
+          </objectSet>
+        </include>
+      </rules>
+    </migXml>
+  </migration>
+</assembly>
+
+

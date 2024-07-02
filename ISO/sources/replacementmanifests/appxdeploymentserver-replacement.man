@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<assembly
+    xmlns="urn:schemas-microsoft-com:asm.v3"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    manifestVersion="1.0"
+    >
+  <assemblyIdentity
+      language="neutral"
+      name="Microsoft-Windows-AppX-Deployment-Server"
+      processorArchitecture="*"
+      version="0.0.0.0"
+      />
+  <migration settingsVersion="2"
+    replacementSettingsVersionRange="1-2">
+    <!-- rules specifying what files and registry entries to collect -->
+    <migXml xmlns="">
+      <plugin
+          classId="{AE27C1A6-25F2-45FD-9A28-081B81F29E0A}"
+          file="Microsoft-Windows-AppX-Deployment-Server\AppxUpgradeMigrationPlugin.dll"
+          />
+      <rules context="System">
+        <include>
+          <objectSet>
+            <!-- single instance store -->
+            <pattern type="File">%ProgramFiles%\WindowsApps\*[*]</pattern>
+            <!-- backup manifests -->
+            <pattern type="File">%ProgramData%\Microsoft\Windows\AppRepository [*.xml]</pattern>
+            <!-- OEM DISM-installed apps -->
+            <pattern type="File">%windir%\InfusedApps\*[*]</pattern>
+            <!-- migrate group policies for app deployment -->
+            <pattern type="Registry">HKLM\Software\Policies\Microsoft\Windows\Appx [*]</pattern>
+            <!-- migrate sideload settings for app deployment -->
+            <pattern type="Registry">HKLM\Software\Microsoft\Windows\CurrentVersion\AppModelUnlock [*]</pattern>
+            <!-- migrate known package volumes -->
+            <pattern type="Registry">HKLM\Software\Microsoft\Windows\CurrentVersion\Appx\PackageVolumes\* [*]</pattern>
+          </objectSet>
+        </include>
+        <exclude>
+          <objectSet>
+            <!-- deleted packages -->
+            <pattern type="File">%ProgramFiles%\WindowsApps\Deleted\*[*]</pattern>
+            <!-- backup manifests for inbox packages -->
+            <pattern type="File">%ProgramData%\Microsoft\Windows\AppRepository [winstore_*_cw5n1h2txyewy.xml]</pattern>
+            <pattern type="File">%ProgramData%\Microsoft\Windows\AppRepository [windows.immersivecontrolpanel_*_cw5n1h2txyewy.xml]</pattern>
+            <pattern type="File">%ProgramData%\Microsoft\Windows\AppRepository [CheckPoint.VPN_*_cw5n1h2txyewy.xml]</pattern>
+            <pattern type="File">%ProgramData%\Microsoft\Windows\AppRepository [f5.vpn.client_*_cw5n1h2txyewy.xml]</pattern>
+            <pattern type="File">%ProgramData%\Microsoft\Windows\AppRepository [FileManager_*_cw5n1h2txyewy.xml]</pattern>
+            <pattern type="File">%ProgramData%\Microsoft\Windows\AppRepository [JuniperNetworks.JunosPulseVpn_*_cw5n1h2txyewy.xml]</pattern>
+            <pattern type="File">%ProgramData%\Microsoft\Windows\AppRepository [Microsoft.MoCamera_*_cw5n1h2txyewy.xml]</pattern>
+            <pattern type="File">%ProgramData%\Microsoft\Windows\AppRepository [SonicWALL.MobileConnect_*_cw5n1h2txyewy.xml]</pattern>
+          </objectSet>
+        </exclude>
+        <merge script="MigXmlHelper.DestinationPriority()">
+          <objectSet>
+            <!-- backup manifests -->
+            <pattern type="File">%ProgramData%\Microsoft\Windows\AppRepository [*.xml]</pattern>
+          </objectSet>
+        </merge>
+      </rules>
+    </migXml>
+  </migration>
+</assembly>

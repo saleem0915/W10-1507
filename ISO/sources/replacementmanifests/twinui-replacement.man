@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v3" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" manifestVersion="1.0">
+  <assemblyIdentity name="Microsoft-Windows-TwinUI" version="0.0.0.0" processorArchitecture="*" language="neutral" />
+  <migration scope="Upgrade" settingsVersion="2" replacementSettingsVersionRange="1">
+    <machineSpecific>
+        <migXml xmlns="">
+          <rules context="User">
+            <include>
+              <objectSet>
+                <pattern type="Registry">HKCU\Software\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\Notifications\* [*]</pattern>
+                <pattern type="Registry">HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\AppContract\* [*]</pattern>
+                <pattern type="Registry">HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\SharingMRU\* [*]</pattern>
+                <pattern type="Registry">HKCU\Software\Microsoft\Windows\CurrentVersion\ImmersiveShell\Switcher\* [*]</pattern>
+                <pattern type="File">%CSIDL_LOCAL_APPDATA%\Microsoft\Windows\WinX\* [*]</pattern>
+              </objectSet>
+            </include>
+          </rules>
+        </migXml>
+    </machineSpecific>
+  </migration>
+</assembly>

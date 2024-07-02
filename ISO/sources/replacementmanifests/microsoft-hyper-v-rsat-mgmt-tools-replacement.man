@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<assembly>
+  <assemblyIdentity
+      name="Microsoft-Hyper-V-RSAT-Mgmt-Tools-Replacement"
+      processorArchitecture="*"
+      version="0.0.0.0"
+      versionScope="nonSxS"
+      />
+
+  <migration replacementSettingsVersionRange="0"
+     replacementVersionRange="6.0-6.1"
+     settingsVersion="0"
+     alwaysProcess="yes">
+    <registerSDF name="RSAT-Hyper-V-Tools-Feature"/>
+    <migXml xmlns="">
+      <detects>
+        <detect>
+          <condition>MigXmlHelper.DoesObjectExist( "File", "%ProgramFiles%\Hyper-V [Microsoft.Virtualization.Client.dll]" )</condition>
+        </detect>
+      </detects>
+    </migXml>
+  </migration>
+</assembly>

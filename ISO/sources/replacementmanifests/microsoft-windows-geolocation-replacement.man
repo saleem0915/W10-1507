@@ -1,0 +1,18 @@
+<assembly>
+  <assemblyIdentity name="Microsoft-Windows-Geolocation-Framework"
+                    version="0.0.0.0"
+                    processorArchitecture="*"
+                    language="neutral"/>
+  <migration replacementVersionRange="6.1-6.3" settingsVersion="0" replacementSettingsVersionRange="0" alwaysProcess="yes">
+    <migXml xmlns="">
+      <rules context="System">
+        <include>
+          <objectSet>
+            <!-- Gather pre-Threshold master switch reg key -->
+            <pattern type="Registry">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Overrides\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}  [SensorPermissionState]</pattern>
+          </objectSet>
+        </include>
+      </rules>
+    </migXml>
+  </migration>
+</assembly>

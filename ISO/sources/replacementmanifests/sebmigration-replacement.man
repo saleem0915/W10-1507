@@ -1,0 +1,25 @@
+﻿<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<assembly>
+  <assemblyIdentity
+      language="neutral"
+      name="Microsoft-Windows-SystemEventsBroker-Migration"
+      processorArchitecture="*"
+      version="0.0.0.0"
+      versionScope="nonSxS"
+      />
+  <migration
+      alwaysProcess="yes"
+      replacementVersionRange="6.2-6.3"
+      scope="Upgrade"
+      settingsVersion="0"
+      >
+    <machineSpecific>
+      <migXml xmlns="">
+        <plugin
+            classId="{c1c9611f-f2ee-412f-9188-32448248becc}"
+            file="SebMigration\SebMigrationPlugin.dll"
+            />
+      </migXml>
+    </machineSpecific>
+  </migration>
+</assembly>

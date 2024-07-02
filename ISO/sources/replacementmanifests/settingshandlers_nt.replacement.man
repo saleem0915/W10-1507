@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<assembly
+    xmlns="urn:schemas-microsoft-com:asm.v3"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    manifestVersion="1.0"
+    >
+  <assemblyIdentity
+      language="neutral"
+      name="Microsoft-Windows-SystemSettings-SettingsHandlers-nt"
+      processorArchitecture="*"
+      version="0.0.0.0"
+      versionScope="nonSxS"
+      />
+  <migration
+      alwaysProcess="yes"
+      replacementVersionRange="6.3-10.0"
+      replacementSettingsVersionRange="0"
+      settingsVersion="1"
+      >
+    <migXml xmlns="">
+      <rules context="System">
+        <include>
+          <objectSet>
+            <pattern type="Registry">HKLM\Software\Microsoft\WindowsSelfHost\* [*]</pattern>
+          </objectSet>
+        </include>
+        <exclude>
+          <objectSet>
+            <pattern type="Registry">HKLM\Software\Microsoft\WindowsSelfHost\Applicability [BranchName]</pattern>
+          </objectSet>
+          <objectSet>
+            <pattern type="Registry">HKLM\Software\Microsoft\WindowsSelfHost\AU [AUOptions]</pattern>
+          </objectSet>
+          <objectSet>
+            <pattern type="Registry">HKLM\Software\Microsoft\WindowsSelfHost\AU [ScheduledInstallTime]</pattern>
+          </objectSet>
+          <objectSet>
+            <pattern type="Registry">HKLM\Software\Microsoft\WindowsSelfHost\AU [ScheduledInstallDay]</pattern>
+          </objectSet>
+        </exclude>
+      </rules>
+    </migXml>
+  </migration>
+</assembly>

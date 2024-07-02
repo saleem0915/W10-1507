@@ -1,0 +1,49 @@
+﻿<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<assembly
+    xmlns="urn:schemas-microsoft-com:asm.v3"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    manifestVersion="1.0"
+    >
+  <assemblyIdentity
+      language="neutral"
+      name="Microsoft-Windows-SystemSettings"
+      processorArchitecture="*"
+      version="0.0.0.0"
+      />
+  <migration
+      alwaysProcess="yes"
+      replacementSettingsVersionRange="0"
+      replacementVersionRange="6.2.*"
+      settingsVersion="0"
+      >
+    <migXml xmlns="">
+      <detects>
+        <detect>
+          <condition>MigXmlHelper.DoesObjectExist("Registry","HKLM\Software\Microsoft\Windows\CurrentVersion\WAPI")</condition>
+        </detect>
+      </detects>
+      <rules context="System">
+        <include>
+          <objectSet>
+            <pattern type="Registry">HKLM\Software\Microsoft\Windows\CurrentVersion\Control Panel\Settings\Network [WiFiToWlan]</pattern>
+            <pattern type="Registry">HKLM\Software\Microsoft\Windows\CurrentVersion\Control Panel\Settings\Network [DisplayNetworkSelection]</pattern>
+          </objectSet>
+        </include>
+        <addObjects>
+          <object>
+            <location type="Registry">HKLM\Software\Microsoft\Windows\CurrentVersion\Control Panel\Settings\Network [WiFiToWlan]</location>
+            <attributes>DWORD</attributes>
+            <bytes>01000000</bytes>
+          </object>
+          <object>
+            <location type="Registry">HKLM\Software\Microsoft\Windows\CurrentVersion\Control Panel\Settings\Network [DisplayNetworkSelection]</location>
+            <attributes>DWORD</attributes>
+            <bytes>01000000</bytes>
+          </object>
+        </addObjects>
+      </rules>
+    </migXml>
+    <migrationDisplayID>WiFiToWlan</migrationDisplayID>
+  </migration>
+</assembly>
